@@ -1,6 +1,10 @@
 package foodme.entity;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
 
@@ -11,6 +15,9 @@ public class Ingredient {
 	private Long id;
 	private String name;
 	
+	@ManyToMany(mappedBy="ingredients")
+	private List<Recipe> recipes = new ArrayList<>();
+	
 	public Ingredient() {}
 	
 	public String getName() {
@@ -20,5 +27,4 @@ public class Ingredient {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 }
