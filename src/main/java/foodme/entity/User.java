@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.springframework.lang.NonNull;
+
 @Entity
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NonNull
 	private String username;
+	@NonNull
 	private String password;
 	
 	@ManyToMany
@@ -22,12 +26,12 @@ public class User {
 	
 	public User() {}
 	
-	public String getName() {
+	public String getUsername() {
 		return this.username;
 	}
 	
-	public void setName(String name) {
-		this.username = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public String getPassword() {
