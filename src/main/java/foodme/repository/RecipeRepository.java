@@ -12,7 +12,7 @@ import foodme.entity.Recipe;
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	
-	@Query("SELECT u FROM Recipe u WHERE u.name = LOWER(:name)")
+	@Query(value = "SELECT * FROM Recipe u WHERE u.name = LOWER(:name) LIMIT 1", nativeQuery = true)
 	Optional<Recipe> findByName(@Param("name") String name);
 	
 }
