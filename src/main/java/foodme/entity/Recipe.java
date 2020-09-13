@@ -10,6 +10,7 @@ public class Recipe {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private String image;
 	
 	@ManyToMany
 	@JoinTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "recipe_id"), 
@@ -40,5 +41,13 @@ public class Recipe {
 	
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
+	}
+	
+	public String getImage() {
+		return this.image;
+	}
+	
+	public void setImage(String image) {
+		this.image = image;
 	}
 }
