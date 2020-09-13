@@ -12,7 +12,7 @@ public class Cookbook {
 	private String name;
 	
 	@ManyToMany
-	@JoinTable(name = "recipe_list", joinColumns = @JoinColumn(name = "list_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+	@JoinTable(name = "recipe_cookbook", joinColumns = @JoinColumn(name = "cookbook_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
 	private List<Recipe> recipes = new ArrayList<>();
 	
 	public Cookbook() {}

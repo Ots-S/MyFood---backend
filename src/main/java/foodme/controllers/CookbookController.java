@@ -9,17 +9,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 import foodme.entity.Cookbook;
+import foodme.entity.Recipe;
 import foodme.repository.CookbookRepository;
+import foodme.repository.RecipeRepository;
 
 @RestController
 public class CookbookController {
 	
 	@Autowired
 	private CookbookRepository cookbookRepository;
+	
+	@Autowired
+	private RecipeRepository recipeRepository;
 	
 	@GetMapping("/cookbooks")
 	public List<Cookbook> getCookbooks() {
@@ -35,6 +42,24 @@ public class CookbookController {
 			cookbookRepository.save(cookbook);
 			return new ResponseEntity(HttpStatus.ACCEPTED);
 		}
+	}
+	
+	@PostMapping("/cookbooks/{idCookbook}/recipe/{idRecipe}") 
+		public ResponseEntity addRecipeToCookbook(@PathVariable Long idCookbook, @PathVariable Long idRecipe) {
+			Optional<Cookbook> cookbook = cookbookRepository.findById(idCookbook);
+			Optional<Recipe> recipe = recipeRepository.findById(idRecipe);
+			cookbook.get().getRecipes().add(recipe.get());
+			cookbookRepository.save(cookbook.get());
+			return new ResponseEntity(HttpStatus.ACCEPTED);
+		}
+	
+	@DeleteMapping("/cookbooks/{idCookbook}/recipe/{idRecipe}")
+		public ResponseEntity deleteRecipeFromCookbook(@PathVariable Long idCookbook, @PathVariable Long idRecipe) {
+		Optional<Cookbook> cookbook = cookbookRepository.findById(idCookbook);
+		Optional<Recipe> recipe = recipeRepository.findById(idRecipe);
+		cookbook.get().getRecipes().remove(recipe.get());
+		cookbookRepository.save(cookbook.get());
+		return new ResponseEntity(HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/cookbooks/{id}")

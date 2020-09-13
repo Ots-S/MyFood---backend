@@ -18,6 +18,8 @@ public class Ingredient {
 	@Column(unique = true)
 	private String name;
 	
+	private String image;
+	
 	@ManyToMany(mappedBy="ingredients")
 	private List<Recipe> recipes = new ArrayList<>();
 	
@@ -37,5 +39,13 @@ public class Ingredient {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getImage() {
+		return this.image;
+	}
+	
+	public void setImage(String image) {
+		this.image = image;
 	}
 }
