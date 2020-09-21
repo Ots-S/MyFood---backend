@@ -48,6 +48,9 @@ public class CookbookController {
 		public ResponseEntity addRecipeToCookbook(@PathVariable Long idCookbook, @PathVariable Long idRecipe) {
 			Optional<Cookbook> cookbook = cookbookRepository.findById(idCookbook);
 			Optional<Recipe> recipe = recipeRepository.findById(idRecipe);
+			if(cookbook.get().getRecipes().contains(recipe.get())) {
+				return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+			}
 			cookbook.get().getRecipes().add(recipe.get());
 			cookbookRepository.save(cookbook.get());
 			return new ResponseEntity(HttpStatus.ACCEPTED);

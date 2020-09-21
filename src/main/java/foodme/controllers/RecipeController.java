@@ -24,6 +24,9 @@ public class RecipeController {
 	@Autowired
 	private RecipeRepository recipeRepository;
 	
+	@Autowire
+	private IngredientRepository ingredientRepository;
+	
 	@GetMapping("/recipes")
 	public List<Recipe> getRecipes() {
 		return recipeRepository.findAll();
@@ -50,6 +53,14 @@ public class RecipeController {
 	public String deleteRecipe(@PathVariable Long id) {
 		recipeRepository.deleteById(id);
 		return "Recette supprimée";
+	}
+	
+	@DeleteMapping("/recipes/{recipeId}/ingredient/{ingredientId}")
+	public ResponseEntity deleteIngredientFromRecipe(@PathVariable Long recipeId, @PathVariable Long ingredientId) {
+		Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+		Optional<Ingredient> ingredient = ingredientRepository.findById(ingredientId);
+		recipe.get().getIngredients().remove(ingredient.get());
+		
 	}
 	
 }
