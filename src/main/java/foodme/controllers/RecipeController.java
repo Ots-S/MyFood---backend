@@ -24,7 +24,7 @@ public class RecipeController {
 	@Autowired
 	private RecipeRepository recipeRepository;
 	
-	@Autowire
+	@Autowired
 	private IngredientRepository ingredientRepository;
 	
 	@GetMapping("/recipes")
@@ -49,10 +49,20 @@ public class RecipeController {
 		}
 	}
 	
+	@PostMapping("/recipes/{recipeId}/ingredient/{ingredientId}")
+	public ResponseEntity addIngredientToRecipe(@PathVariable Long recipeId, @PathVariable Long ingredientId) {
+		Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+		Optional<Ingredient> ingredient = ingredientRepository.findById(ingredientId);
+		recipe.get().getIngredients().add(ingredient.get());
+		recipeRepository.save(recipe.get());
+		return new ResponseEntity(HttpStatus.ACCEPTED);
+	}
+		
+	
 	@DeleteMapping("/recipes/{id}")
-	public String deleteRecipe(@PathVariable Long id) {
+	public ResponseEntity deleteRecipe(@PathVariable Long id) {
 		recipeRepository.deleteById(id);
-		return "Recette supprimée";
+		return new ResponseEntity(HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/recipes/{recipeId}/ingredient/{ingredientId}")
@@ -60,7 +70,8 @@ public class RecipeController {
 		Optional<Recipe> recipe = recipeRepository.findById(recipeId);
 		Optional<Ingredient> ingredient = ingredientRepository.findById(ingredientId);
 		recipe.get().getIngredients().remove(ingredient.get());
-		
+		recipeRepository.save(recipe.get());
+		return new ResponseEntity(HttpStatus.ACCEPTED);
 	}
 	
 }
