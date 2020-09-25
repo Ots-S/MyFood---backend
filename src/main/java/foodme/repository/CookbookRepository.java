@@ -12,5 +12,5 @@ import foodme.entity.Cookbook;
 @Repository
 public interface CookbookRepository extends JpaRepository<Cookbook, Long> {
 	@Query(value = "SELECT * FROM Cookbook u WHERE u.name = :name LIMIT 1", nativeQuery = true)
-	Optional<Cookbook> findByName(@Param("name")String name);
+	Optional<Cookbook> findByName(@Param("name") String name);
 }

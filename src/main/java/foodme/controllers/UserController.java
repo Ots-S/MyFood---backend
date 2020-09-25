@@ -17,25 +17,25 @@ import foodme.repository.UserRepository;
 
 @RestController
 public class UserController {
-	
+
 	@Autowired
-	private UserRepository userRepository; 
-	
-	@GetMapping("/users") 
+	private UserRepository userRepository;
+
+	@GetMapping("/users")
 	public List<User> getUsers() {
 		return userRepository.findAll();
 	}
-	
+
 	@GetMapping("/user/{id}")
-		public  User getUser(@PathVariable Long id) {
-			return userRepository.findById(id).get();
+	public User getUser(@PathVariable Long id) {
+		return userRepository.findById(id).get();
 	}
-	
+
 	@PostMapping("/user")
 	public User saveUser(@RequestBody User user) {
 		return userRepository.save(user);
 	}
-	
+
 	@PostMapping("/user/{id}")
 	public String updateUser(@PathVariable Long id, @RequestBody User user) {
 		Optional<User> existingUser = userRepository.findById(id);
@@ -46,10 +46,10 @@ public class UserController {
 			return "Non sauvegardé";
 		}
 	}
-	
+
 	@DeleteMapping("/user/{id}")
 	public @ResponseBody void deleteUser(@PathVariable Long id) {
 		userRepository.deleteById(id);
-	
+
 	}
 }

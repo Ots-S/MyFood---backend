@@ -20,22 +20,21 @@ import foodme.repository.IngredientRepository;
 @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 public class IngredientController {
-	
+
 	@Autowired
 	private IngredientRepository ingredientRepository;
-	
 
-	@GetMapping("/ingredients") 
+	@GetMapping("/ingredients")
 	public List<Ingredient> getIngredients() {
 		return ingredientRepository.findAll();
 	}
-	
-	@GetMapping("/ingredient/{id") 
+
+	@GetMapping("/ingredient/{id")
 	public Optional<Ingredient> getIngredient(@PathVariable Long id) {
 		Optional<Ingredient> ingredient = ingredientRepository.findById(id);
 		return ingredient;
 	}
-	
+
 	@PostMapping("/ingredient")
 	public ResponseEntity saveIngredient(@RequestBody Ingredient ingredient) {
 		Optional<Ingredient> newIngredient = ingredientRepository.findByName(ingredient.getName());
@@ -46,8 +45,8 @@ public class IngredientController {
 			return new ResponseEntity(HttpStatus.ACCEPTED);
 		}
 	}
-	
-	@DeleteMapping("/ingredient/{id}") 
+
+	@DeleteMapping("/ingredient/{id}")
 	public String deleteIngredient(@PathVariable Long id) {
 		ingredientRepository.deleteById(id);
 		return "Supprimé";

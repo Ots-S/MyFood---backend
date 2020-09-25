@@ -11,8 +11,6 @@ import foodme.entity.Ingredient;
 
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
-	
 	@Query(value = "SELECT * FROM Ingredient u where u.name = LOWER(:name) LIMIT 1", nativeQuery = true)
 	Optional<Ingredient> findByName(@Param("name") String name);
-	
 }

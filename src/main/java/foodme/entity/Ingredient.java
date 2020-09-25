@@ -1,4 +1,5 @@
 package foodme.entity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,17 +15,18 @@ public class Ingredient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(unique = true)
 	private String name;
-	
+
 	private String image;
-	
-	@ManyToMany(mappedBy="ingredients")
+
+	@ManyToMany(mappedBy = "ingredients")
 	private List<Recipe> recipes = new ArrayList<>();
-	
-	public Ingredient() {}
-	
+
+	public Ingredient() {
+	}
+
 	public Long getId() {
 		return this.id;
 	}
@@ -32,19 +34,19 @@ public class Ingredient {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getImage() {
 		return this.image;
 	}
-	
+
 	public void setImage(String image) {
 		this.image = image;
 	}
